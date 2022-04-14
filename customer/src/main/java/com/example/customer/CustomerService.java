@@ -1,4 +1,4 @@
-package org.example.customer;
+package com.example.customer;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
