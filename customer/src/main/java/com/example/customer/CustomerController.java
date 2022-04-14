@@ -1,6 +1,7 @@
 package com.example.customer;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public record CustomerController(CustomerService customerService) {
         customerService.registerCustomer(customerRequest);
     }
 
-    @GetMapping("{customerId}")
+    @GetMapping(path = "{customerId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Customer> getCustomerById(@PathVariable("customerId") Integer customerId){
         log.info("get customer by id {}", customerId);
         return customerService
