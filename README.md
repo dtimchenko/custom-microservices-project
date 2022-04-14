@@ -13,3 +13,4 @@ HOW TO:
 - Add Eureka Clients - https://github.com/dtimchenko/custom-microservices-project/commit/27f3273c53bdba149c7e5dc040c8cf382db17575
 - Add Eureka Clients Communication - https://github.com/dtimchenko/custom-microservices-project/commit/e6b61fcbfa9dd67ea1e260f50191cdcaaca9626a
 - Add OpenFeign Client - https://github.com/dtimchenko/custom-microservices-project/commit/4c894dcf2d9b13c089df0ebe9cadee3b24f4ff85
+- Add application/xml API support - https://github.com/dtimchenko/custom-microservices-project/commit/4c894dcf2d9b13c089df0ebe9cadee3b24f4ff85

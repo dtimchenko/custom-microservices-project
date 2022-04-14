@@ -1,7 +1,10 @@
 package com.example.customer;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
 public record CustomerRegistrationRequest(
-        String firstName,
-        String lastName,
-        String email) {
+        @NotEmpty String firstName,
+        @NotEmpty String lastName,
+        @Email String email) {
 }

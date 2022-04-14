@@ -5,13 +5,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Slf4j
 @RestController
 @RequestMapping("api/v1/customers")
 public record CustomerController(CustomerService customerService) {
 
     @PostMapping
-    public void registerCustomer(@RequestBody CustomerRegistrationRequest customerRequest){
+    public void registerCustomer(@RequestBody @Valid CustomerRegistrationRequest customerRequest){
         log.info("new customer registration request {}", customerRequest);
         customerService.registerCustomer(customerRequest);
     }
