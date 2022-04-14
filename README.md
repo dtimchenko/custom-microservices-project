@@ -11,3 +11,4 @@ HOW TO:
 - Add a docker-compose for postgresql - https://github.com/dtimchenko/custom-microservices-project/commit/5f17c642ec2277707e532a94a03a5df968403964
 - Add Eureka Server - https://github.com/dtimchenko/custom-microservices-project/commit/e615453423bcb8b4326f0dc93fa4413fd5d8e549 
 - Add Eureka Clients - https://github.com/dtimchenko/custom-microservices-project/commit/27f3273c53bdba149c7e5dc040c8cf382db17575
+- Add Eureka Clients Communication - https://github.com/dtimchenko/custom-microservices-project/commit/e6b61fcbfa9dd67ea1e260f50191cdcaaca9626a
