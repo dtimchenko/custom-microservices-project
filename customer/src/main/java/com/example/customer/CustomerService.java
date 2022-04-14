@@ -1,11 +1,14 @@
 package com.example.customer;
 
+import com.example.clients.fraud.FraudCheckResponse;
+import com.example.clients.fraud.FraudClient;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
+import java.util.Optional;
 
 @Service
 public record CustomerService(CustomerRepository customerRepository,
-                              RestTemplate restTemplate) {
+                              FraudClient fraudClient) {
     public void registerCustomer(CustomerRegistrationRequest customerRequest) {
         Customer customer = Customer.builder()
                 .firstName(customerRequest.firstName())
@@ -15,16 +18,16 @@ public record CustomerService(CustomerRepository customerRepository,
 
         customerRepository.saveAndFlush(customer);
 
-        FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
-                "http://FRAUD/api/v1/fraud-check/{customerId}",
-                FraudCheckResponse.class,
-                customer.getId()
-        );
+        FraudCheckResponse fraudCheckResponse = fraudClient.isFraudster(customer.getId());
 
         assert fraudCheckResponse != null;
 
         if(fraudCheckResponse.isFraudster()){
             throw new IllegalStateException("Fraudster!");
         }
+    }
+
+    public Optional<Customer> getCustomerById(Integer customerId) {
+        return customerRepository.findById(customerId);
     }
 }
