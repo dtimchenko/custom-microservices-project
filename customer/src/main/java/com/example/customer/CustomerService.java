@@ -2,6 +2,7 @@ package com.example.customer;
 
 import com.example.clients.fraud.FraudCheckResponse;
 import com.example.clients.fraud.FraudClient;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -10,12 +11,14 @@ import java.util.Optional;
 @Service
 public record CustomerService(CustomerRepository customerRepository,
                               EntityManager entityManager,
-                              FraudClient fraudClient) {
+                              FraudClient fraudClient,
+                              BCryptPasswordEncoder passwordEncoder) {
     public Customer registerCustomer(CustomerRegistrationRequest customerRequest) {
         Customer customer = Customer.builder()
                 .firstName(customerRequest.firstName())
                 .lastName(customerRequest.lastName())
                 .email(customerRequest.email())
+                .encryptedPassword(passwordEncoder.encode(customerRequest.password()))
                 .build();
 
         customerRepository.saveAndFlush(customer);
