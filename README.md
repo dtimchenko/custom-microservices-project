@@ -15,3 +15,5 @@ HOW TO:
 - Add OpenFeign Client - https://github.com/dtimchenko/custom-microservices-project/commit/4c894dcf2d9b13c089df0ebe9cadee3b24f4ff85
 - Add application/xml API support - https://github.com/dtimchenko/custom-microservices-project/commit/4c894dcf2d9b13c089df0ebe9cadee3b24f4ff85
 - Add Request Validation - https://github.com/dtimchenko/custom-microservices-project/commit/301886c3d5863319f1478faa2dc19edea89c4ea4
+- Add API Gateway - https://github.com/dtimchenko/custom-microservices-project/commit/dd4b2bf1b945e502a396321fd94be9c8735df816
+- Add Manual Route for API Gateway - https://github.com/dtimchenko/custom-microservices-project/commit/f2c1aa71e92c0cf7c2216e2058b7434e05968b22
