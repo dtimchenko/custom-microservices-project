@@ -17,3 +17,6 @@ HOW TO:
 - Add Request Validation - https://github.com/dtimchenko/custom-microservices-project/commit/301886c3d5863319f1478faa2dc19edea89c4ea4
 - Add API Gateway - https://github.com/dtimchenko/custom-microservices-project/commit/dd4b2bf1b945e502a396321fd94be9c8735df816
 - Add Manual Route for API Gateway - https://github.com/dtimchenko/custom-microservices-project/commit/f2c1aa71e92c0cf7c2216e2058b7434e05968b22
+- Add Spring Gateway LoadBalancer - https://github.com/dtimchenko/custom-microservices-project/commit/9791ca86f585bee408707ba98173034bed011297
+- Add Spring Security - https://github.com/dtimchenko/custom-microservices-project/commit/da4211d999f0cd68002335439cc569d10714bc19
+- Add Spring Security Password Encryption - https://github.com/dtimchenko/custom-microservices-project/commit/3fd5d13029b661f05df8b77e416c8dbf6fc48f34
