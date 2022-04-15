@@ -13,6 +13,7 @@
         <module>fraud</module>
         <module>eureka-server</module>
         <module>clients</module>
+        <module>apigw</module>
     </modules>
 
     <properties>
