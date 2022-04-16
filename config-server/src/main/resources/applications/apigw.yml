@@ -1,0 +1,17 @@
+jwt:
+  secret: secret-phrase
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: customer-authorized-requests
+          uri: lb://CUSTOMER
+          predicates:
+            - Path=/api/v1/customers/**
+            - Header=Authorization, Bearer (.*)
+          filters: AuthorizationHeaderFilter
+        - id: customer-open-requests
+          uri: lb://CUSTOMER
+          predicates:
+            - Path=/api/v1/customers,/api/v1/customers/login
+            - Method=POST

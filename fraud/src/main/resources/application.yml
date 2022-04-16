@@ -3,18 +3,8 @@ server:
 spring:
   application:
     name: fraud
-  datasource:
-    username: admin
-    password: admin
-    url: jdbc:postgresql://localhost:5432/fraud
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        format_sql: true
-    show-sql: true
+  config:
+    import: "optional:configserver:http://localhost:8010/"
 eureka:
   client:
     service-url:

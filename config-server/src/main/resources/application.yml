@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/dtimchenko/custom-microservices-project.git
+          username: dtimchenko
+          password: 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
+          clone-on-start: true
+          search-paths: config-server/src/main/resources/applications/
+server:
+  port: 8010
