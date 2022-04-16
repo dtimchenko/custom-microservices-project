@@ -6,11 +6,20 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: customer
+        - id: customer-authorized-requests
           uri: lb://CUSTOMER
           predicates:
             - Path=/api/v1/customers/**
+            - Header=Authorization, Bearer (.*)
+          filters: AuthorizationHeaderFilter
+        - id: customer-open-requests
+          uri: lb://CUSTOMER
+          predicates:
+            - Path=/api/v1/customers,/api/v1/customers/login
+            - Method=POST
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+jwt:
+  secret: secret-phrase
