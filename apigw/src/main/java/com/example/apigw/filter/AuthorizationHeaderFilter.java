@@ -1,4 +1,4 @@
-package com.example.apigw;
+package com.example.apigw.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
