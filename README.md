@@ -20,3 +20,5 @@ HOW TO:
 - Add Spring Gateway LoadBalancer - https://github.com/dtimchenko/custom-microservices-project/commit/9791ca86f585bee408707ba98173034bed011297
 - Add Spring Security - https://github.com/dtimchenko/custom-microservices-project/commit/da4211d999f0cd68002335439cc569d10714bc19
 - Add Spring Security Password Encryption - https://github.com/dtimchenko/custom-microservices-project/commit/3fd5d13029b661f05df8b77e416c8dbf6fc48f34
+- Add Spring Security JWT - https://github.com/dtimchenko/custom-microservices-project/commit/1b3504a5e6d847ead3825d4aa638beee7ad796ae
+- Add a JWT refresh_token - https://github.com/dtimchenko/custom-microservices-project/commit/28ab1ba9de5bfdc632ff774b3911e3954b6453a1
