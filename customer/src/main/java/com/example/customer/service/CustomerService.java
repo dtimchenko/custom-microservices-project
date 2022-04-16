@@ -1,7 +1,11 @@
-package com.example.customer;
+package com.example.customer.service;
 
 import com.example.clients.fraud.FraudCheckResponse;
 import com.example.clients.fraud.FraudClient;
+import com.example.customer.data.Customer;
+import com.example.customer.data.CustomerRepository;
+import com.example.customer.web.CustomerRegistrationRequest;
+import com.example.customer.web.CustomerUpdateRequest;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

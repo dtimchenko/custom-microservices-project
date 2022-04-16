@@ -1,6 +1,8 @@
-package com.example.customer;
+package com.example.customer.web;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.customer.data.Customer;
+import com.example.customer.service.CustomerService;
 import com.example.customer.security.JWTUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

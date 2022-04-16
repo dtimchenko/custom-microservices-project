@@ -1,4 +1,4 @@
-package com.example.customer;
+package com.example.customer.web;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

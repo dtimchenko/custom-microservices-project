@@ -22,3 +22,4 @@ HOW TO:
 - Add Spring Security Password Encryption - https://github.com/dtimchenko/custom-microservices-project/commit/3fd5d13029b661f05df8b77e416c8dbf6fc48f34
 - Add Spring Security JWT - https://github.com/dtimchenko/custom-microservices-project/commit/1b3504a5e6d847ead3825d4aa638beee7ad796ae
 - Add a JWT refresh_token - https://github.com/dtimchenko/custom-microservices-project/commit/28ab1ba9de5bfdc632ff774b3911e3954b6453a1
+- Add Gateway Authorization filter - https://github.com/dtimchenko/custom-microservices-project/commit/144531f83c5ca2ecc919b4abdc587101e1915272

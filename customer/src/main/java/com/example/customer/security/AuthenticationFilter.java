@@ -1,6 +1,6 @@
 package com.example.customer.security;
 
-import com.example.customer.CustomerLoginRequest;
+import com.example.customer.web.CustomerLoginRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

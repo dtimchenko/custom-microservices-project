@@ -1,5 +1,7 @@
 package com.example.customer;
 
+import com.example.customer.service.CustomerService;
+import com.example.customer.web.CustomerRegistrationRequest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
