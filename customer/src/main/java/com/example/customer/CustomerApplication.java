@@ -1,5 +1,6 @@
 package com.example.customer;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -19,6 +20,21 @@ public class CustomerApplication {
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    //save test user in database
+    @Bean
+    CommandLineRunner run(CustomerService customerService){
+        return args -> {
+            CustomerRegistrationRequest testUser = new CustomerRegistrationRequest(
+                    "test-user-first-name",
+                    "test-user-last-name",
+                    "test@email.com",
+                    "1234567890"
+            );
+
+            customerService.createCustomer(testUser, false);
+        };
     }
 
 }

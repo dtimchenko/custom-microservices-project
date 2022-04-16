@@ -3,6 +3,8 @@ server:
   error:
     include-message: always
     include-binding-errors: always
+jwt.secret:
+  secret-phrase
 spring:
   application:
     name: customer

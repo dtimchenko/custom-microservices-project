@@ -2,18 +2,27 @@ package com.example.customer;
 
 import com.example.clients.fraud.FraudCheckResponse;
 import com.example.clients.fraud.FraudClient;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public record CustomerService(CustomerRepository customerRepository,
-                              EntityManager entityManager,
                               FraudClient fraudClient,
-                              BCryptPasswordEncoder passwordEncoder) {
+                              BCryptPasswordEncoder passwordEncoder) implements UserDetailsService {
+
     public Customer registerCustomer(CustomerRegistrationRequest customerRequest) {
+        return createCustomer(customerRequest, true);
+    }
+
+    public Customer createCustomer(CustomerRegistrationRequest customerRequest, boolean withFraudCheck) {
         Customer customer = Customer.builder()
                 .firstName(customerRequest.firstName())
                 .lastName(customerRequest.lastName())
@@ -23,12 +32,14 @@ public record CustomerService(CustomerRepository customerRepository,
 
         customerRepository.saveAndFlush(customer);
 
-        FraudCheckResponse fraudCheckResponse = fraudClient.isFraudster(customer.getId());
+        if(withFraudCheck){
+            FraudCheckResponse fraudCheckResponse = fraudClient.isFraudster(customer.getId());
 
-        assert fraudCheckResponse != null;
+            assert fraudCheckResponse != null;
 
-        if(fraudCheckResponse.isFraudster()){
-            throw new IllegalStateException("Fraudster!");
+            if(fraudCheckResponse.isFraudster()){
+                throw new IllegalStateException("Fraudster!");
+            }
         }
 
         return customer;
@@ -54,5 +65,15 @@ public record CustomerService(CustomerRepository customerRepository,
 
     public void deleteCustomerById(Integer customerId) {
         customerRepository.deleteById(customerId);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Customer customer = customerRepository.findCustomerByEmail(username);
+        if(Objects.isNull(customer)){
+            throw new UsernameNotFoundException("user not found " + username);
+        }
+
+        return new User(customer.getEmail(), customer.getEncryptedPassword(), Collections.emptyList());
     }
 }
