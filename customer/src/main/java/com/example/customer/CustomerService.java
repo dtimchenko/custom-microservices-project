@@ -71,7 +71,7 @@ public record CustomerService(CustomerRepository customerRepository,
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Customer customer = customerRepository.findCustomerByEmail(username);
         if(Objects.isNull(customer)){
-            throw new UsernameNotFoundException("user not found " + username);
+            throw new UsernameNotFoundException("user not found: " + username);
         }
 
         return new User(customer.getEmail(), customer.getEncryptedPassword(), Collections.emptyList());
