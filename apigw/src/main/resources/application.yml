@@ -2,7 +2,7 @@ server:
   port: 8082
 spring:
   application:
-    name: api-gateway
+    name: apigw
   config:
     import: "optional:configserver:http://localhost:8010/"
 eureka:
