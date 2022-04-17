@@ -42,7 +42,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(authorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeRequests()
-                .antMatchers(LOGIN_URL, "/api/v1/customers/refresh-token").permitAll()
+                .antMatchers(
+                        LOGIN_URL,
+                        "/api/v1/customers/refresh-token",
+                        "/actuator/**"
+                ).permitAll()
                 .antMatchers(HttpMethod.POST,"/api/v1/customers").permitAll()
                 .anyRequest().authenticated();
     }

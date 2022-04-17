@@ -5,6 +5,11 @@ spring:
     name: fraud
   config:
     import: "optional:configserver:http://localhost:8010/"
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 eureka:
   client:
     service-url:

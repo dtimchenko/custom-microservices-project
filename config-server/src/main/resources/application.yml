@@ -10,5 +10,15 @@ spring:
           password: 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
           clone-on-start: true
           search-paths: config-server/src/main/resources/applications/
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 server:
   port: 8010
+management:
+  endpoints:
+    web:
+      exposure:
+        include: busrefresh
