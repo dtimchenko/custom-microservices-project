@@ -6,6 +6,7 @@ To run docker containers, just run from the root:
 `docker compose up`
 
 UPDATE SERVICE PROPERTIES DYNAMICALLY
+
 To update service properties dynamically (without service redeploy) you need:
 - update properties on config-server repo (https://github.com/dtimchenko/temp-repo.git/config-server/src/main/resources/applications/)
 - POST http://localhost:8010/actuator/busrefresh (where localhost:8010 is a config-server address)
@@ -39,6 +40,12 @@ SPRING SECURITY:
 
 CONFIG SERVER:
 - Add a Spring Cloud Config Server - https://github.com/dtimchenko/custom-microservices-project/commit/fbf1b88fb8f834a7705b329d2f77d514dc80e18a
+- Add Config Server Shared Properties - https://github.com/dtimchenko/custom-microservices-project/commit/e669f370c7615f436f7febe3f33bff635ee94c6b
 
-SPRING CLOUD BUS
+SPRING CLOUD BUS:
 - Update services properties dynamically - https://github.com/dtimchenko/custom-microservices-project/commit/31574d0d1f97345eb1fd02674de438daac12f65f
+
+PROPERTIES ENCRYPTION/DECRYPTION:
+- Add Properties encryption and decryption - https://github.com/dtimchenko/custom-microservices-project/commit/0795f4049a64c766f7f9ab1d9677caee9148d9ee
+
+to encrypt a property just send a POST to http://localhost:8010/encrypt (where http://localhost:8010 is the config-server's endpoint)
