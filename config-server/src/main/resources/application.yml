@@ -6,8 +6,8 @@ spring:
       server:
         git:
           uri: https://github.com/dtimchenko/custom-microservices-project.git
-          username: {cipher}ff49f5591911df368cc62907b084ddce3b011fa3b30b4a48dc30facfd288f941
-          password: {cipher}472bb761ca41ea492518398d264d16ec1e41537d22c3136a908f44929011ed02cadd96b15507ba7541a79df2cca7b68e28e74e9649bbc29bd9b0d50df3c8cadb
+          username: '{cipher}cad56683bdf26737f6745f0761cfb1d2c8d81d21745056c79c491b252b06aa91'
+          password: '{cipher}af951e26ab0d8b5e3c1cefb599c7a3a30d40829d1eebda582e8fb70623104fae1a6bc8f03e1024cf43d324b795fe6d40e1e457ebda94833144932a52bc0fb12a'
           clone-on-start: true
           search-paths: config-server/src/main/resources/applications/
   rabbitmq:
