@@ -1,6 +1,14 @@
 # custom-microservices-project
 
-Simple microservices POC
+Simple microservices POC based on the Spring Cloud and Java 18, to try microservices architecture patterns and technologies.
+
+Project structure:
+- **apigw** - spring cloud gateway
+- **clients** - feign clients common library, for communication between services
+- **config-server** - spring cloud config server, for storing services properties in the one place
+- **consumer** - consumer service
+- **eureka-server** - discovery service, for simple communication between services
+- **fraud** - service for checking if the consumer is fraudster
 
 To run docker containers, just run from the root:
 `docker compose up`
@@ -18,8 +26,11 @@ GENERAL:
 EUREKA:
 - Add Eureka Server - https://github.com/dtimchenko/custom-microservices-project/commit/e615453423bcb8b4326f0dc93fa4413fd5d8e549 
 - Add Eureka Clients - https://github.com/dtimchenko/custom-microservices-project/commit/27f3273c53bdba149c7e5dc040c8cf382db17575
-- Add Eureka Clients Communication - https://github.com/dtimchenko/custom-microservices-project/commit/e6b61fcbfa9dd67ea1e260f50191cdcaaca9626a
-- Add OpenFeign Client - https://github.com/dtimchenko/custom-microservices-project/commit/4c894dcf2d9b13c089df0ebe9cadee3b24f4ff85
+- Add Eureka Clients RestTemplate Communication - https://github.com/dtimchenko/custom-microservices-project/commit/e6b61fcbfa9dd67ea1e260f50191cdcaaca9626a
+- Add Eureka Clients Feign Communication - https://github.com/dtimchenko/custom-microservices-project/commit/4c894dcf2d9b13c089df0ebe9cadee3b24f4ff85
+
+HYSTRIX CIRCUIT BREAKER:
+- Add hystrix Circuit Breaker - https://github.com/dtimchenko/custom-microservices-project/commit/8a78055c87140edf80f39945b5e4766e6e84be42
 
 SPRING WEB:
 - Add application/xml API support - https://github.com/dtimchenko/custom-microservices-project/commit/4c894dcf2d9b13c089df0ebe9cadee3b24f4ff85
@@ -46,6 +57,6 @@ SPRING CLOUD BUS:
 - Update services properties dynamically - https://github.com/dtimchenko/custom-microservices-project/commit/31574d0d1f97345eb1fd02674de438daac12f65f
 
 PROPERTIES ENCRYPTION/DECRYPTION:
-- Add Properties encryption and decryption - https://github.com/dtimchenko/custom-microservices-project/commit/0795f4049a64c766f7f9ab1d9677caee9148d9ee
+- Add Properties SYMMETRIC encryption and decryption - https://github.com/dtimchenko/custom-microservices-project/commit/0795f4049a64c766f7f9ab1d9677caee9148d9ee
 
 to encrypt a property just send a POST to http://localhost:8010/encrypt (where http://localhost:8010 is the config-server's endpoint)
