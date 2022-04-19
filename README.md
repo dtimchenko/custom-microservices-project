@@ -29,8 +29,9 @@ EUREKA:
 - Add Eureka Clients RestTemplate Communication - https://github.com/dtimchenko/custom-microservices-project/commit/e6b61fcbfa9dd67ea1e260f50191cdcaaca9626a
 - Add Eureka Clients Feign Communication - https://github.com/dtimchenko/custom-microservices-project/commit/4c894dcf2d9b13c089df0ebe9cadee3b24f4ff85
 
-HYSTRIX CIRCUIT BREAKER:
+CIRCUIT BREAKER:
 - Add hystrix Circuit Breaker - https://github.com/dtimchenko/custom-microservices-project/commit/8a78055c87140edf80f39945b5e4766e6e84be42
+- Add resilience4j Circuit Breaker - https://github.com/dtimchenko/custom-microservices-project/commit/3f266435014ba94c79af166f20964ea5404ec2bc
 
 SPRING WEB:
 - Add application/xml API support - https://github.com/dtimchenko/custom-microservices-project/commit/4c894dcf2d9b13c089df0ebe9cadee3b24f4ff85
