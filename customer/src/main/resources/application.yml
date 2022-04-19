@@ -8,8 +8,3 @@ spring:
     name: customer
   config:
     import: "optional:configserver:http://localhost:8010/"
-management:
-  endpoints:
-    web:
-      exposure:
-        include: env,health

@@ -13,3 +13,13 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+resilience4j:
+  circuitbreaker:
+    instances:
+      fraud:
+        failureRateThreshold: 50
+        registerHealthIndicator: true
