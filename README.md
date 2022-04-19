@@ -3,12 +3,12 @@
 Simple microservices POC based on the Spring Cloud and Java 18, to try microservices architecture patterns and technologies.
 
 Project structure:
-- **apigw** - spring cloud gateway
-- **clients** - feign clients common library, for communication between services
-- **config-server** - spring cloud config server, for storing services properties in the one place
-- **consumer** - consumer service
-- **eureka-server** - discovery service, for simple communication between services
-- **fraud** - service for checking if the consumer is fraudster
+- **apigw** - _spring cloud gateway_
+- **clients** - _feign clients common library, for communication between services_
+- **config-server** - _spring cloud config server, for storing services properties in the one place_
+- **consumer** - _consumer service_
+- **eureka-server** - _discovery service, for simple communication between services_
+- **fraud** - _service for checking if the consumer is fraudster_
 
 To run docker containers, just run from the root:
 `docker compose up`

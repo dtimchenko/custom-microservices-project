@@ -13,10 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableEurekaClient
 @EnableFeignClients(basePackages = "com.example.clients")
-@ComponentScan(basePackages = {
-        "com.example.customer",
-        "com.example.clients"
-})
 @SpringBootApplication
 public class CustomerApplication {
 
