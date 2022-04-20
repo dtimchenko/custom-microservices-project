@@ -23,3 +23,12 @@ resilience4j:
       fraud:
         failureRateThreshold: 50
         registerHealthIndicator: true
+    circuit-breaker-aspect-order: 1
+  retry:
+    retry-aspect-order: 2
+    instances:
+      fraud:
+        maxAttempts: 3
+        waitDuration: 2s
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
