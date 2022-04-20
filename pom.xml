@@ -23,6 +23,7 @@
         <maven.compiler.target>18</maven.compiler.target>
         <spring.boot.maven.plugin.version>2.6.6</spring.boot.maven.plugin.version>
         <spring.cloud-version>2021.0.1</spring.cloud-version>
+        <zipkin.version>2.2.8.RELEASE</zipkin.version>
     </properties>
 
     <dependencyManagement>
@@ -62,6 +63,11 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+            <version>${zipkin.version}</version>
         </dependency>
     </dependencies>
 

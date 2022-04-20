@@ -15,7 +15,6 @@
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
         <auth0.version>3.19.1</auth0.version>
-        <zipkin.version>2.2.8.RELEASE</zipkin.version>
     </properties>
 
     <dependencies>
@@ -66,11 +65,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bus-amqp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zipkin</artifactId>
-            <version>${zipkin.version}</version>
         </dependency>
     </dependencies>
 </project>
