@@ -32,6 +32,7 @@ EUREKA:
 CIRCUIT BREAKER:
 - Add hystrix Circuit Breaker - https://github.com/dtimchenko/custom-microservices-project/commit/8a78055c87140edf80f39945b5e4766e6e84be42
 - Add resilience4j Circuit Breaker - https://github.com/dtimchenko/custom-microservices-project/commit/3f266435014ba94c79af166f20964ea5404ec2bc
+- Add resilience4j Retry - https://github.com/dtimchenko/custom-microservices-project/commit/47fb688aec682ecf350590fa0c6e4ceffc7eafbb
 
 SPRING WEB:
 - Add application/xml API support - https://github.com/dtimchenko/custom-microservices-project/commit/4c894dcf2d9b13c089df0ebe9cadee3b24f4ff85
@@ -53,6 +54,9 @@ SPRING SECURITY:
 CONFIG SERVER:
 - Add a Spring Cloud Config Server - https://github.com/dtimchenko/custom-microservices-project/commit/fbf1b88fb8f834a7705b329d2f77d514dc80e18a
 - Add Config Server Shared Properties - https://github.com/dtimchenko/custom-microservices-project/commit/e669f370c7615f436f7febe3f33bff635ee94c6b
+
+ZIPKIN TRACING:
+- Add zipkin and spring sleuth tracing - https://github.com/dtimchenko/custom-microservices-project/commit/3401c18099864ace8e30431f325596cc86e3f7b0
 
 SPRING CLOUD BUS:
 - Update services properties dynamically - https://github.com/dtimchenko/custom-microservices-project/commit/31574d0d1f97345eb1fd02674de438daac12f65f
