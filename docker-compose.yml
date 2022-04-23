@@ -1,3 +1,4 @@
+version: "3.8"
 services:
   postgres:
     container_name: postgres
@@ -13,6 +14,11 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U admin" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
@@ -35,13 +41,127 @@ services:
       - "15672:15672"
     networks:
       - spring
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
   zipkin:
     image: openzipkin/zipkin
     container_name: zipkin
     ports:
-      - 9411:9411
+      - "9411:9411"
     networks:
       - spring
+  config-server:
+    image: dtimchenko/config-server:latest
+    container_name: config-server
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    ports:
+      - "8010:8010"
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    networks:
+      - spring
+    healthcheck:
+      test: "curl --fail --silent localhost:8010/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+  eureka-server:
+    image: dtimchenko/eureka-server:latest
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - spring
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+  apigw:
+    image: dtimchenko/apigw:latest
+    container_name: apigw
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8010/
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_ZIPKIN_BASEURL=http://zipkin:9411
+    networks:
+      - spring
+    healthcheck:
+      test: "curl --fail --silent localhost:8082/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+  customer:
+    image: dtimchenko/customer:latest
+    container_name: customer
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8011:8011"
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8010/
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_ZIPKIN_BASEURL=http://zipkin:9411
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customer
+    networks:
+      - spring
+      - postgres
+    healthcheck:
+      test: "curl --fail --silent localhost:8011/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+  fraud:
+    image: dtimchenko/fraud:latest
+    container_name: fraud
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8012:8012"
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8010/
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_ZIPKIN_BASEURL=http://zipkin:9411
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/fraud
+    networks:
+      - spring
+      - postgres
+    healthcheck:
+      test: "curl --fail --silent localhost:8012/actuator/health | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
 networks:
   postgres:

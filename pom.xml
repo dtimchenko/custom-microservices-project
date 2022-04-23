@@ -42,6 +42,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-zipkin</artifactId>
+                <version>${zipkin.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -64,18 +69,13 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zipkin</artifactId>
-            <version>${zipkin.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>com.springframework.boot</groupId>
+                    <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.boot.maven.plugin.version}</version>
                 </plugin>
