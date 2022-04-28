@@ -1,0 +1,11 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    tags: ["customer"]
+    paths:
+      - /data/logs/*.log
+    exclude_files: ['\.gz$']
+
+output.logstash:
+  enabled: true
+  hosts: ["logstash:5044"]

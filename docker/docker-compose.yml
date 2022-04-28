@@ -43,7 +43,7 @@ services:
       - spring
     healthcheck:
       test: rabbitmq-diagnostics check_port_connectivity
-      interval: 5s
+      interval: 10s
       timeout: 5s
       retries: 5
       start_period: 20s
@@ -100,8 +100,11 @@ services:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
       - SPRING_RABBITMQ_HOST=rabbitmq
       - SPRING_ZIPKIN_BASEURL=http://zipkin:9411
+    volumes:
+      - apigw-volume:/logs
     networks:
       - spring
+      - elk
     healthcheck:
       test: "curl --fail --silent localhost:8082/actuator/health | grep UP || exit 1"
       interval: 10s
@@ -129,6 +132,9 @@ services:
     networks:
       - spring
       - postgres
+      - elk
+    volumes:
+      - customer-volume:/logs
     healthcheck:
       test: "curl --fail --silent localhost:8011/actuator/health | grep UP || exit 1"
       interval: 10s
@@ -153,22 +159,107 @@ services:
       - SPRING_RABBITMQ_HOST=rabbitmq
       - SPRING_ZIPKIN_BASEURL=http://zipkin:9411
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/fraud
+    volumes:
+      - fraud-volume:/logs
     networks:
       - spring
       - postgres
+      - elk
     healthcheck:
       test: "curl --fail --silent localhost:8012/actuator/health | grep UP || exit 1"
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 20s
+  elasticsearch:
+    image: elasticsearch:8.1.3
+    container_name: elasticsearch
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - elk
+  kibana:
+    image: kibana:8.1.3
+    container_name: kibana
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk
+  logstash:
+    image: logstash:8.1.3
+    container_name: logstash
+    volumes:
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - "5044:5044"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk
+  customer-filebeat:
+    image: docker.elastic.co/beats/filebeat:8.1.3
+    container_name: customer-filebeat
+    user: root
+    volumes:
+      - ./filebeat/customer.filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - customer-volume:/data/logs:ro
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk
+  fraud-filebeat:
+    image: docker.elastic.co/beats/filebeat:8.1.3
+    container_name: fraud-filebeat
+    user: root
+    volumes:
+      - ./filebeat/fraud.filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - fraud-volume:/data/logs:ro
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk
+  apigw-filebeat:
+    image: docker.elastic.co/beats/filebeat:8.1.3
+    container_name: apigw-filebeat
+    user: root
+    volumes:
+      - ./filebeat/apigw.filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - apigw-volume:/data/logs:ro
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk
 
 networks:
   postgres:
     driver: bridge
   spring:
     driver: bridge
+  elk:
+    driver: bridge
 
 volumes:
   postgres:
   pgadmin:
+  customer-volume:
+  apigw-volume:
+  fraud-volume:
+  elasticsearch-data:
+    driver: local
