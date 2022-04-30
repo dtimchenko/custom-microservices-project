@@ -105,6 +105,7 @@ services:
     networks:
       - spring
       - elk
+      - monitoring
     healthcheck:
       test: "curl --fail --silent localhost:8082/actuator/health | grep UP || exit 1"
       interval: 10s
@@ -133,6 +134,7 @@ services:
       - spring
       - postgres
       - elk
+      - monitoring
     volumes:
       - customer-volume:/logs
     healthcheck:
@@ -165,6 +167,7 @@ services:
       - spring
       - postgres
       - elk
+      - monitoring
     healthcheck:
       test: "curl --fail --silent localhost:8012/actuator/health | grep UP || exit 1"
       interval: 10s
@@ -246,6 +249,31 @@ services:
       - elasticsearch
     networks:
       - elk
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:v2.35.0
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    depends_on:
+      - customer
+      - fraud
+      - apigw
+    networks:
+      - monitoring
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:8.5.1
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - monitoring
+    depends_on:
+      - prometheus
 
 networks:
   postgres:
@@ -253,6 +281,8 @@ networks:
   spring:
     driver: bridge
   elk:
+    driver: bridge
+  monitoring:
     driver: bridge
 
 volumes:

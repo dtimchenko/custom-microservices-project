@@ -1,0 +1,17 @@
+global:
+  scrape_interval:     5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  - job_name: 'apigw'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+    - targets: ['apigw:8082']
+  - job_name: 'customer'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+    - targets: [ 'customer:8011' ]
+  - job_name: 'fraud'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+    - targets: [ 'fraud:8012' ]

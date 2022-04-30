@@ -5,6 +5,8 @@ import com.example.customer.data.Customer;
 import com.example.customer.service.CustomerService;
 import com.example.customer.security.JWTUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.micrometer.core.annotation.Timed;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,19 +25,24 @@ import static org.apache.http.HttpHeaders.AUTHORIZATION;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("api/v1/customers")
-public record CustomerController(CustomerService customerService,
-                                 JWTUtils jwtUtils) {
+public class CustomerController {
+
+    private final CustomerService customerService;
+    private final JWTUtils jwtUtils;
 
     @PostMapping(
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @Timed(value = "registerCustomer.time", description = "time to register a new customer")
     public ResponseEntity<Customer> registerCustomer(@RequestBody @Valid CustomerRegistrationRequest customerRequest){
         log.info("new customer registration request {}", customerRequest);
         return ResponseEntity.ok(customerService.registerCustomer(customerRequest));
     }
 
     @GetMapping(path = "{customerId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @Timed(value = "getCustomerById.time", description = "time to get an existing customer")
     public ResponseEntity<Customer> getCustomerById(@PathVariable("customerId") Integer customerId){
         log.info("get customer by id {}", customerId);
         return customerService

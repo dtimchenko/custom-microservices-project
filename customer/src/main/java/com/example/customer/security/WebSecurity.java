@@ -45,9 +45,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         LOGIN_URL,
                         "/api/v1/customers/refresh-token",
-                        "/actuator/health",
-                        "/actuator/circuitbreakerevents",
-                        "/actuator/circuitbreakers"
+                        "/actuator/**"
                 ).permitAll()
                 .antMatchers(HttpMethod.POST,"/api/v1/customers").permitAll()
                 .anyRequest().authenticated();
