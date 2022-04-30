@@ -76,6 +76,9 @@ To update service properties dynamically (without service redeploy) you need:
 ### ELK CENTRALIZED LOGGING
 - Add ELK logging with Filebeats - https://github.com/dtimchenko/custom-microservices-project/commit/0f2646e2bcb16f75dfc86e4a448eef3d53f23763
 
+### CENTRALIZED MONITORING
+- Add monitoring with: Micrometer, Prometheus and Grafana - https://github.com/dtimchenko/custom-microservices-project/commit/45091411e6a29a5c0cc0eb61434b629c46c3f5ff
+
 ### PROPERTIES ENCRYPTION/DECRYPTION
 - Add Properties SYMMETRIC encryption and decryption - https://github.com/dtimchenko/custom-microservices-project/commit/0795f4049a64c766f7f9ab1d9677caee9148d9ee
 
