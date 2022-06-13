@@ -6,6 +6,9 @@ filebeat.inputs:
       - /data/logs/*.log
     exclude_files: ['\.gz$']
 
-output.logstash:
+output.kafka:
   enabled: true
-  hosts: ["logstash:5044"]
+  hosts: ["kafka:9092"]
+  topic: "apigw-logs"
+  codec.json:
+    pretty: false

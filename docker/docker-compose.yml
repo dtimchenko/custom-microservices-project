@@ -274,6 +274,47 @@ services:
       - monitoring
     depends_on:
       - prometheus
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.1.1
+    hostname: zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_SERVERS: zookeeper:2888:3888
+    volumes:
+      - zookeeper-volume:/data
+    networks:
+      - kafka
+  kafka:
+    image: confluentinc/cp-kafka:7.1.1
+    hostname: kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - kafka-volume:/tmp/docker/kafka1/data
+    networks:
+      - kafka
+      - elk
+    depends_on:
+      - zookeeper
+    healthcheck:
+      test: [ "CMD", "nc", "-vz", "localhost", "9092" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 networks:
   postgres:
@@ -284,8 +325,12 @@ networks:
     driver: bridge
   monitoring:
     driver: bridge
+  kafka:
+    driver: bridge
 
 volumes:
+  zookeeper-volume:
+  kafka-volume:
   postgres:
   pgadmin:
   customer-volume:
