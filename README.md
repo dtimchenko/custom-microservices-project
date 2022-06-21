@@ -10,7 +10,7 @@ Project structure:
 - **eureka-server** - _discovery service, for simple communication between services_
 - **fraud** - _service for checking if the consumer is fraudster_
 
-To run docker containers, just run from the root:
+To run docker containers, just run from the docker:
 `docker compose up`
 
 ## HOWTO
