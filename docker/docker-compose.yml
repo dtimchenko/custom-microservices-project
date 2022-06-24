@@ -130,6 +130,7 @@ services:
       - SPRING_RABBITMQ_HOST=rabbitmq
       - SPRING_ZIPKIN_BASEURL=http://zipkin:9411
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customer
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://keycloak:8080/auth/realms/customers
     networks:
       - spring
       - postgres
@@ -315,8 +316,32 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+  keycloak:
+    image: jboss/keycloak:latest
+    container_name: keycloak
+    hostname: keycloak
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: admin
+      DB_SCHEMA: public
+      DB_PASSWORD: admin
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    ports:
+      - 8080:8080
+      - 8443:8443
+    networks:
+      - auth
+      - postgres
 
 networks:
+  auth:
+    driver: bridge
   postgres:
     driver: bridge
   spring:
@@ -329,6 +354,7 @@ networks:
     driver: bridge
 
 volumes:
+  keycloak:
   zookeeper-volume:
   kafka-volume:
   postgres:
