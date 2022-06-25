@@ -19,6 +19,15 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
+    @PostMapping(
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @Timed(value = "addCustomer.time", description = "time to add a new customer")
+    public ResponseEntity<Customer> addCustomer(@RequestBody @Valid CustomerCreationRequest customerRequest){
+        log.info("new customer add request {}", customerRequest);
+        return ResponseEntity.ok(customerService.createCustomer(customerRequest));
+    }
+
     @GetMapping(path = "{customerId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     @Timed(value = "getCustomerById.time", description = "time to get an existing customer")
     public ResponseEntity<Customer> getCustomerById(@PathVariable("customerId") Integer customerId){

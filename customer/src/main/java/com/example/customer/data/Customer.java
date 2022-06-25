@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -27,5 +28,6 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String email;
-    private String encryptedPassword;
+    @Column(name = "user_id", unique = true)
+    private UUID userId;
 }
