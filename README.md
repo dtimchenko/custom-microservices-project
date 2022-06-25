@@ -62,6 +62,7 @@ To update service properties dynamically (without service redeploy) you need:
 - Add Spring Security Password Encryption - https://github.com/dtimchenko/custom-microservices-project/commit/3fd5d13029b661f05df8b77e416c8dbf6fc48f34
 - Add Spring Security JWT - https://github.com/dtimchenko/custom-microservices-project/commit/1b3504a5e6d847ead3825d4aa638beee7ad796ae
 - Add a JWT refresh_token - https://github.com/dtimchenko/custom-microservices-project/commit/28ab1ba9de5bfdc632ff774b3911e3954b6453a1
+- Add Method Level Security - https://github.com/dtimchenko/custom-microservices-project/commit/cceea3db70d74f9d6652bb5b281f0f96fdf4fa47
 
 ### OAUTH2
 - Add Keycloak Server - https://github.com/dtimchenko/custom-microservices-project/commit/cf828c9f0b7f040ecd40d819ddfe30a82b45939e
