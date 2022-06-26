@@ -4,9 +4,7 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: customer-authorized-requests
+        - id: customer-requests
           uri: lb://CUSTOMER
           predicates:
             - Path=/api/v1/customers/**
-            - Header=Authorization, Bearer (.*)
-          filters: AuthorizationHeaderFilter
