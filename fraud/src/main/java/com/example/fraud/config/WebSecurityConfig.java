@@ -1,4 +1,4 @@
-package com.example.customer.config;
+package com.example.fraud.config;
 
 import com.example.commons.security.KeycloakRoleConverter;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

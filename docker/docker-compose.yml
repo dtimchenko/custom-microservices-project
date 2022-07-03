@@ -106,7 +106,6 @@ services:
       - spring
       - elk
       - monitoring
-      - auth
     healthcheck:
       test: "curl --fail --silent localhost:8082/actuator/health | grep UP || exit 1"
       interval: 10s
@@ -122,6 +121,8 @@ services:
       eureka-server:
         condition: service_healthy
       postgres:
+        condition: service_healthy
+      keycloak:
         condition: service_healthy
     ports:
       - "8011:8011"
@@ -156,6 +157,8 @@ services:
         condition: service_healthy
       postgres:
         condition: service_healthy
+      keycloak:
+        condition: service_healthy
     ports:
       - "8012:8012"
     environment:
@@ -164,6 +167,7 @@ services:
       - SPRING_RABBITMQ_HOST=rabbitmq
       - SPRING_ZIPKIN_BASEURL=http://zipkin:9411
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/fraud
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://keycloak:8080/auth/realms/customers
     volumes:
       - fraud-volume:/logs
     networks:
@@ -171,6 +175,7 @@ services:
       - postgres
       - elk
       - monitoring
+      - auth
     healthcheck:
       test: "curl --fail --silent localhost:8012/actuator/health | grep UP || exit 1"
       interval: 10s

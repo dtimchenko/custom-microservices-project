@@ -1,4 +1,4 @@
-package com.example.customer.security;
+package com.example.commons.security;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;

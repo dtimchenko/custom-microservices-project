@@ -4,7 +4,7 @@ Simple microservices POC based on the Spring Cloud and Java 18, to try microserv
 
 Project structure:
 - **apigw** - _spring cloud gateway_
-- **clients** - _feign clients common library, for communication between services_
+- **commons** - _common microservices code_
 - **config-server** - _spring cloud config server, for storing services properties in the one place_
 - **consumer** - _consumer service_
 - **eureka-server** - _discovery service, for simple communication between services_

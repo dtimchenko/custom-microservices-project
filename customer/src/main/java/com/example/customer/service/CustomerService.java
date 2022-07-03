@@ -1,7 +1,7 @@
 package com.example.customer.service;
 
-import com.example.clients.fraud.FraudCheckResponse;
-import com.example.clients.fraud.FraudClient;
+import com.example.commons.clients.fraud.FraudCheckResponse;
+import com.example.commons.clients.fraud.FraudClient;
 import com.example.customer.data.Customer;
 import com.example.customer.data.CustomerRepository;
 import com.example.customer.web.CustomerCreationRequest;
