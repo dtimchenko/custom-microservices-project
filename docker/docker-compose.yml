@@ -106,6 +106,7 @@ services:
       - spring
       - elk
       - monitoring
+      - auth
     healthcheck:
       test: "curl --fail --silent localhost:8082/actuator/health | grep UP || exit 1"
       interval: 10s
@@ -136,6 +137,7 @@ services:
       - postgres
       - elk
       - monitoring
+      - auth
     volumes:
       - customer-volume:/logs
     healthcheck:

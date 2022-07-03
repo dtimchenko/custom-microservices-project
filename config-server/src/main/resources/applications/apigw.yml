@@ -1,5 +1,6 @@
-jwt:
-  secret: secret-phrase
+auth:
+  server:
+    host: http://localhost:8080
 spring:
   cloud:
     gateway:
