@@ -66,6 +66,7 @@ To update service properties dynamically (without service redeploy) you need:
 
 ### OAUTH2
 - Add Keycloak Server - https://github.com/dtimchenko/custom-microservices-project/commit/cf828c9f0b7f040ecd40d819ddfe30a82b45939e
+- Keycloak Docker Fix - https://github.com/dtimchenko/custom-microservices-project/commit/ac98adec2113feb08a960a69552133e263b48b5d 
 
 ### CONFIG SERVER
 - Add a Spring Cloud Config Server - https://github.com/dtimchenko/custom-microservices-project/commit/fbf1b88fb8f834a7705b329d2f77d514dc80e18a
