@@ -19,6 +19,20 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8080/auth/realms/customers
+      client:
+        registration:
+          keycloak:
+            authorization-grant-type: client_credentials
+            client-id: customers-app-client
+            client-secret: xwI25p0BwK5hgP8EpdVhnTlXq975uKKG
+            scope: openid
+        provider:
+          keycloak:
+            token-uri: http://keycloak:8080/auth/realms/customers/protocol/openid-connect/token
+openfeign:
+  security:
+    enabled: true
+    client-registration-id: keycloak
 management:
   health:
     circuitbreakers:

@@ -5,5 +5,3 @@ spring:
     name: fraud
   config:
     import: "optional:configserver:http://localhost:8010/"
-    discovery:
-      enabled: true

@@ -133,6 +133,7 @@ services:
       - SPRING_ZIPKIN_BASEURL=http://zipkin:9411
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customer
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://keycloak:8080/auth/realms/customers
+      - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAK_TOKENURI=http://keycloak:8080/auth/realms/customers/protocol/openid-connect/token
     networks:
       - spring
       - postgres
@@ -346,6 +347,12 @@ services:
     networks:
       - auth
       - postgres
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/auth/realms/master" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
 networks:
   auth:
