@@ -10,6 +10,16 @@ Project structure:
 - **eureka-server** - _discovery service, for simple communication between services_
 - **fraud** - _service for checking if the consumer is fraudster_
 
+## Local Setup
+
+### Keycloak host
+
+Add next items to the hosts
+
+`sudo nano /etc/hosts`
+
+`127.0.0.1 keycloak`
+
 To run docker containers, just run from the docker:
 `docker compose up`
 
@@ -66,7 +76,8 @@ To update service properties dynamically (without service redeploy) you need:
 
 ### OAUTH2
 - Add Keycloak Server - https://github.com/dtimchenko/custom-microservices-project/commit/cf828c9f0b7f040ecd40d819ddfe30a82b45939e
-- Keycloak Docker Fix - https://github.com/dtimchenko/custom-microservices-project/commit/ac98adec2113feb08a960a69552133e263b48b5d 
+- Keycloak Docker Fix - https://github.com/dtimchenko/custom-microservices-project/commit/ac98adec2113feb08a960a69552133e263b48b5d
+- Add OAuth2 Token to a Feign-Client - https://github.com/dtimchenko/custom-microservices-project/commit/5a0c954c857af834354abdc03a57b7ec6e86497e
 
 ### CONFIG SERVER
 - Add a Spring Cloud Config Server - https://github.com/dtimchenko/custom-microservices-project/commit/fbf1b88fb8f834a7705b329d2f77d514dc80e18a
