@@ -5,7 +5,7 @@ Simple microservices POC based on the Spring Cloud and Java 18, to try microserv
 Project structure:
 - **apigw** - _spring cloud gateway_
 - **commons** - _common microservices code_
-- **config-server** - _spring cloud config server, for storing services properties in the one place_
+- **config-server** - _spring cloud config server, for storing services properties in one place_
 - **consumer** - _consumer service_
 - **eureka-server** - _discovery service, for simple communication between services_
 - **fraud** - _service for checking if the consumer is fraudster_
@@ -14,11 +14,22 @@ Project structure:
 
 ### Keycloak host
 
+We need to add a host mapping for keycloak. It is crucial because keycloak is relay on the host.
+If you will run one service from localhost and keycloak from docker - authentication will not work.
+Because the keycloak host on docker will be: http://keycloak but in browser it will be: http://locahost
+
 Add next items to the hosts
 
 `sudo nano /etc/hosts`
 
 `127.0.0.1 keycloak`
+
+### Create databases
+
+For customer and fraud service we need to create a databases(it will be automated in future updates).
+It should be **customer** and **fraud** databases.
+
+### Run the Project
 
 To run docker containers, just run from the docker:
 `docker compose up`
