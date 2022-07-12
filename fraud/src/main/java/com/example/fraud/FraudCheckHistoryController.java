@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1/frauds/check")
 public record FraudCheckHistoryController(FraudCheckHistoryService fraudCheckHistoryService) {
 
-    @GetMapping("{customerId}")
-    public FraudCheckResponse isFraudster(@PathVariable("customerId") Integer customerId){
-        log.info("fraud check for customer {}", customerId);
-        boolean fraudulentCustomer = fraudCheckHistoryService.isFraudulentCustomer(customerId);
+    @GetMapping("{email}")
+    public FraudCheckResponse isFraudster(@PathVariable("email") String email){
+        log.info("fraud check for customer {}", email);
+        boolean fraudulentCustomer = fraudCheckHistoryService.isFraudulentCustomer(email);
         return new FraudCheckResponse(fraudulentCustomer);
     }
 }

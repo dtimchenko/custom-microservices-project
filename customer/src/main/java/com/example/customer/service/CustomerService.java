@@ -24,7 +24,7 @@ public record CustomerService(CustomerRepository customerRepository,
 
         customerRepository.saveAndFlush(customer);
 
-        FraudCheckResponse fraudCheckResponse = fraudClient.isFraudster(customer.getId());
+        FraudCheckResponse fraudCheckResponse = fraudClient.isFraudster(customer.getEmail());
 
         assert fraudCheckResponse != null;
 

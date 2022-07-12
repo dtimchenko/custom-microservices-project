@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class FraudCheckHistory {
+public class FraudUser {
+
     @Id
     @SequenceGenerator(
             name = "fraud_id_sequence",
@@ -24,7 +25,6 @@ public class FraudCheckHistory {
             generator = "fraud_id_sequence"
     )
     private Integer id;
-    private Integer customerId;
-    private Boolean isFraudster;
+    private String email;
     private LocalDateTime createdAt;
 }

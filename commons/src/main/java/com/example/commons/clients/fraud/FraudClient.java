@@ -13,13 +13,13 @@ public interface FraudClient {
 
     Logger log = LoggerFactory.getLogger(FraudClient.class);
 
-    @GetMapping("api/v1/frauds/check/{customerId}")
+    @GetMapping("api/v1/frauds/check/{email}")
     @Retry(name = "fraud")
     @CircuitBreaker(name = "fraud", fallbackMethod = "isFraudsterFallBack")
-    FraudCheckResponse isFraudster(@PathVariable("customerId") Integer customerId);
+    FraudCheckResponse isFraudster(@PathVariable("email") String email);
 
-    default FraudCheckResponse isFraudsterFallBack(Integer customerId, Throwable exception){
-        log.info("isFraudsterFallBack method was executed for user {}", customerId);
+    default FraudCheckResponse isFraudsterFallBack(String email, Throwable exception){
+        log.info("isFraudsterFallBack method was executed for user {}", email);
         return new FraudCheckResponse(false);
     }
 }
