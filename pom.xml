@@ -25,6 +25,11 @@
         <spring.cloud-version>2021.0.1</spring.cloud-version>
         <zipkin.version>2.2.8.RELEASE</zipkin.version>
         <logback.encoder.version>7.1.1</logback.encoder.version>
+        <protobuf.version>1.47.0</protobuf.version>
+        <protobuf.java.version>3.21.2</protobuf.java.version>
+        <protobuf.plugin.version>0.6.1</protobuf.plugin.version>
+        <protobuf.protoc.artifact.version>3.21.2</protobuf.protoc.artifact.version>
+        <spring.boot.grpc.version>2.13.1.RELEASE</spring.boot.grpc.version>
     </properties>
 
     <dependencyManagement>
@@ -52,6 +57,31 @@
                 <groupId>net.logstash.logback</groupId>
                 <artifactId>logstash-logback-encoder</artifactId>
                 <version>${logback.encoder.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-stub</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-protobuf</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.devh</groupId>
+                <artifactId>grpc-server-spring-boot-starter</artifactId>
+                <version>${spring.boot.grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.devh</groupId>
+                <artifactId>grpc-client-spring-boot-starter</artifactId>
+                <version>${spring.boot.grpc.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -84,6 +114,24 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.boot.maven.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.xolstice.maven.plugins</groupId>
+                    <artifactId>protobuf-maven-plugin</artifactId>
+                    <version>${protobuf.plugin.version}</version>
+                    <configuration>
+                        <protocArtifact>com.google.protobuf:protoc:${protobuf.protoc.artifact.version}:exe:${os.detected.classifier}</protocArtifact>
+                        <pluginId>grpc-java</pluginId>
+                        <pluginArtifact>io.grpc:protoc-gen-grpc-java:${protobuf.version}:exe:${os.detected.classifier}</pluginArtifact>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>compile</goal>
+                                <goal>compile-custom</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

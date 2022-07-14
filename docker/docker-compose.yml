@@ -134,6 +134,8 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/customer
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://keycloak:8080/auth/realms/customers
       - SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_KEYCLOAK_TOKENURI=http://keycloak:8080/auth/realms/customers/protocol/openid-connect/token
+      - GRPC_CLIENT_GRPC_FRAUD_SERVICE_ADDRESS=static://fraud:9000
+      - GRPC_CLIENT_GRPC_FRAUD_SERVICE_NEGOTIATIONTYPE=plaintext
     networks:
       - spring
       - postgres
@@ -162,6 +164,7 @@ services:
         condition: service_healthy
     ports:
       - "8012:8012"
+      - "9000:9000"
     environment:
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8010/
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka
@@ -169,6 +172,7 @@ services:
       - SPRING_ZIPKIN_BASEURL=http://zipkin:9411
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/fraud
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUERURI=http://keycloak:8080/auth/realms/customers
+      - GRPC_SERVER_PORT=9000
     volumes:
       - fraud-volume:/logs
     networks:

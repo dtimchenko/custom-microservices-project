@@ -25,6 +25,10 @@ public class FraudUser {
             generator = "fraud_id_sequence"
     )
     private Integer id;
+
+    @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 }

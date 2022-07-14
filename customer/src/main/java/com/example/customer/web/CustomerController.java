@@ -1,7 +1,8 @@
 package com.example.customer.web;
 
+import com.example.commons.protobuf.fraud.FraudUserCreationResponse;
 import com.example.customer.data.Customer;
-import com.example.customer.service.CustomerService;
+import com.example.customer.facade.CustomerFacade;
 import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,7 @@ import javax.validation.Valid;
 @RequestMapping("api/v1/customers")
 public class CustomerController {
 
-    private final CustomerService customerService;
+    private final CustomerFacade customerFacade;
 
     @PreAuthorize("hasRole('admin') or #customerRequest.userId == T(java.util.UUID).fromString(#jwt.subject)")
     @PostMapping(
@@ -30,7 +31,18 @@ public class CustomerController {
     @Timed(value = "addCustomer.time", description = "time to add a new customer")
     public ResponseEntity<Customer> addCustomer(@RequestBody @Valid CustomerCreationRequest customerRequest,  @AuthenticationPrincipal Jwt jwt){
         log.info("new customer add request {} from {}", customerRequest, jwt.getSubject());
-        return ResponseEntity.ok(customerService.createCustomer(customerRequest));
+        return ResponseEntity.ok(customerFacade.createCustomer(customerRequest));
+    }
+
+    @PreAuthorize("hasRole('admin') or #customerRequest.userId == T(java.util.UUID).fromString(#jwt.subject)")
+    @PostMapping(
+            value = "/fraud",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @Timed(value = "addCustomer.time", description = "time to add a new customer")
+    public ResponseEntity<FraudUserDto> addFraud(@RequestBody @Valid CustomerCreationRequest customerRequest, @AuthenticationPrincipal Jwt jwt){
+        log.info("new customer add request {} from {}", customerRequest, jwt.getSubject());
+        return ResponseEntity.ok(customerFacade.addFraudster(customerRequest));
     }
 
     @PostAuthorize("returnObject.body != null ? returnObject.body.userId == T(java.util.UUID).fromString(#jwt.subject) : true")
@@ -38,7 +50,7 @@ public class CustomerController {
     @Timed(value = "getCustomerById.time", description = "time to get an existing customer")
     public ResponseEntity<Customer> getCustomerById(@PathVariable("customerId") Integer customerId, @AuthenticationPrincipal Jwt jwt){
         log.info("get customer by id {}", customerId);
-        return customerService
+        return customerFacade
                 .getCustomerById(customerId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -52,7 +64,7 @@ public class CustomerController {
                                                    @PathVariable("customerId") Integer customerId,
                                                    @AuthenticationPrincipal Jwt jwt){
         log.info("customer update request {} for customer {} from {}", customerRequest, customerId, jwt.getSubject());
-        return customerService.updateCustomer(customerId, customerRequest)
+        return customerFacade.updateCustomer(customerId, customerRequest)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -61,6 +73,6 @@ public class CustomerController {
     @DeleteMapping(path = "{customerId}")
     public void deleteCustomerById(@PathVariable("customerId") Integer customerId, @AuthenticationPrincipal Jwt jwt){
         log.info("delete customer by id {} from {}", customerId, jwt.getSubject());
-        customerService.deleteCustomerById(customerId);
+        customerFacade.deleteCustomerById(customerId);
     }
 }

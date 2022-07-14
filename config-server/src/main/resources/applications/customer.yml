@@ -52,3 +52,8 @@ resilience4j:
         waitDuration: 2s
         enableExponentialBackoff: true
         exponentialBackoffMultiplier: 2
+grpc:
+  client:
+    grpc-fraud-service:
+      address: static://localhost:9000
+      negotiationType: plaintext
